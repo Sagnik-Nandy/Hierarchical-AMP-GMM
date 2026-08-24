@@ -1,0 +1,6 @@
+# Deploy key artifacts (not secret, but not needed in the repo)
+Python_Scripts/gmm_deploy_key.txt
+
+# Python
+__pycache__/
+*.pyc
