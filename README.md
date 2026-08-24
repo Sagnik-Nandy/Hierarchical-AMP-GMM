@@ -1,12 +1,20 @@
 # Hierarchical AMP-GMM
 
-DAIF: a multi-modal denoising and prediction pipeline built on Approximate
-Message Passing (AMP) with a per-cluster Gaussian-Mixture empirical-Bayes
-prior. Modalities are grouped into clusters (by CKA similarity or otherwise),
-jointly denoised via AMP, and the denoised representations feed a downstream
-predictor. Compared against multi-view baselines (AJIVE, MCCA, GCCA, MFA,
-HPCA), Cooperative Lasso (Ding & Tibshirani, 2021), JAFAR, MOFA+, and
-Multigrate.
+Implementation and experiments for
+[Nandy, Lahiry, Sur & Sen, "DAIF: A Data-Driven Intermediate Fusion Framework
+for Multimodal Supervised Learning via Approximate Message
+Passing"](https://arxiv.org/abs/2608.02769): a multi-modal denoising and
+prediction pipeline built on Approximate Message Passing (AMP) with a
+per-cluster Gaussian-Mixture empirical-Bayes prior. Modalities are clustered
+by estimated cross-modal dependence (CKA similarity or otherwise) rather than
+a fixed fusion design, jointly denoised via AMP, and the denoised
+representations feed a downstream predictor. Compared against multi-view
+baselines (AJIVE, MCCA, GCCA, MFA, HPCA), Cooperative Lasso (Ding &
+Tibshirani, 2021), JAFAR, MOFA+, and Multigrate — on synthetic data
+(`Numerical_Experiments/`) and two real applications matching the paper's own
+experiments: trimodal single-cell protein-expression prediction
+(`TEA-seq Data Analysis/`) and patient survival analysis
+(`TCGA-BRCA Data Analysis/`).
 
 ## Repository layout
 
