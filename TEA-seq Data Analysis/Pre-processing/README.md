@@ -8,6 +8,12 @@ object. Run the three files in this folder in order:
 2. `adt_pre_processing.ipynb`
 3. `pre_processing.ipynb`
 
+This pipeline mirrors the TEA-seq pre-processing used in
+[Nandy & Ma (2024), "Multimodal data integration and cross-modal querying
+via orchestrated approximate message passing"](https://arxiv.org/abs/2407.19030)
+— the same dataset is analyzed there. See the companion code at
+[Sagnik-Nandy/OrchAMP](https://github.com/Sagnik-Nandy/OrchAMP).
+
 ## Directory layout
 
 ```
