@@ -19,6 +19,12 @@ via orchestrated approximate message passing"](https://arxiv.org/abs/2407.19030)
 — the same dataset is analyzed there. See the companion code at
 [Sagnik-Nandy/OrchAMP](https://github.com/Sagnik-Nandy/OrchAMP).
 
+The dataset itself is from
+[Swanson et al. (2021), "Simultaneous trimodal single-cell measurement of
+transcripts, epitopes, and chromatin accessibility using TEA-seq,"
+*eLife* 10:e63632](https://pubmed.ncbi.nlm.nih.gov/33835024/), which
+introduced the TEA-seq assay.
+
 ## Directory layout
 
 ```
