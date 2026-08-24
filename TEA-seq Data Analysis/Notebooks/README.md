@@ -24,7 +24,7 @@ These three import `Python_scripts/` (`sys.path.append("../Python_scripts")`)
 | `train_co_op.ipynb` | `test_co_op.ipynb` | Cooperative Lasso (Ding & Tibshirani, 2021) |
 | `train_mofa.R` | `test_mofa.ipynb` | MOFA+ (train in R, test in Python) |
 | `train_multigrate.ipynb` | `test_multigrate.ipynb` | Multigrate |
-| `train_jafar.R` | `test_jafar.R` | JAFAR |
+| `train_jafar.R` | `test_jafar.R` | [JAFAR (Anceschi, Ferrari, Dunson & Mallick, 2024)](https://arxiv.org/abs/2406.00778) |
 
 Each `train_*` script fits on the split-3 training cells and saves a model;
 each matching `test_*` script loads that saved model and evaluates on the

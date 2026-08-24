@@ -73,7 +73,7 @@ single-cell stack, no `torch`/`mvlearn`/`prince` needed here):
 | `ggplot2`, `cowplot`, `patchwork`, `RColorBrewer` | QC/UMAP plots |
 | `Biobase` | Bioconductor infrastructure dependency (Seurat/SeuratDisk chain) |
 | `MOFA2` | The MOFA+ baseline |
-| `jafar`, `jsonlite`, `uwot` | The JAFAR baseline (model + metrics I/O + UMAP backend) |
+| `jafar`, `jsonlite`, `uwot` | The [JAFAR](https://arxiv.org/abs/2406.00778) baseline (model + metrics I/O + UMAP backend) |
 | `rstudioapi` *(optional)* | RStudio-convenience working-directory detection in the JAFAR/MOFA+ scripts; guarded by `requireNamespace(...)`, so its absence doesn't break anything |
 
 ### Python — `TCGA-BRCA Data Analysis/`
