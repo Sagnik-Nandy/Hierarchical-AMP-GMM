@@ -66,14 +66,16 @@ scoping needed.
 
 ## Raw inputs (for the notebook path, or if you skip the script's download)
 
-Place in a `data/` folder as a sibling of this one:
+Place in a `data/` folder as a sibling of this one. `tcga_brca_pipeline.py`
+downloads these automatically from UCSC Xena; the Dropbox links are a mirror
+if you'd rather skip that:
 
-| Filename | Source |
-|---|---|
-| `BRCA_RNAseq.tsv.gz` | UCSC Xena, RSEM log2-normalized RNA-seq |
-| `BRCA_CNV.tsv.gz` | UCSC Xena, GISTIC2 thresholded copy number |
-| `BRCA_Methylation450.tsv.gz` | UCSC Xena, HumanMethylation450 beta values |
-| `BRCA_survival.tsv` | UCSC Xena, survival/clinical labels |
+| Filename | Source | Dropbox mirror |
+|---|---|---|
+| `BRCA_RNAseq.tsv.gz` | UCSC Xena, RSEM log2-normalized RNA-seq | [Dropbox](https://www.dropbox.com/scl/fi/2y8aygrlxcvkgf6qen8yz/BRCA_RNAseq.tsv.gz?rlkey=2gcylsxlilcxuvjxmfd16zsdw&st=7oa4m4s0&dl=0) |
+| `BRCA_CNV.tsv.gz` | UCSC Xena, GISTIC2 thresholded copy number | [Dropbox](https://www.dropbox.com/scl/fi/jav0ojo3rt2bagrec41i6/BRCA_CNV.tsv.gz?rlkey=yval2esy8ubrekgwsf494mx68&st=akftx6gg&dl=0) |
+| `BRCA_Methylation450.tsv.gz` | UCSC Xena, HumanMethylation450 beta values | [Dropbox](https://www.dropbox.com/scl/fi/jfhu52uzfbat4fmc11s7t/BRCA_Methylation450.tsv.gz?rlkey=dy9u9b2xl3izqscqn6p0v4f1v&st=bz5uz6z9&dl=0) |
+| `BRCA_survival.tsv` | UCSC Xena, survival/clinical labels | [Dropbox](https://www.dropbox.com/scl/fi/80m85dtl04et621tvuoqg/BRCA_survival.tsv?rlkey=km7p381x7i4tgv0pfjqvvuero&st=iv5kr9va&dl=0) |
 
 ## Directory layout
 
