@@ -22,7 +22,7 @@ These three import `Python_scripts/` (`sys.path.append("../Python_scripts")`)
 | Train | Test | Method |
 |---|---|---|
 | `train_co_op.ipynb` | `test_co_op.ipynb` | Cooperative Lasso (Ding & Tibshirani, 2021) |
-| `train_mofa.R` | `test_mofa.ipynb` | MOFA+ (train in R, test in Python) |
+| `train_mofa.R` | `test_mofa.ipynb` | [MOFA+ (Argelaguet et al., 2018)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6010767/) (train in R, test in Python) |
 | `train_multigrate.ipynb` | `test_multigrate.ipynb` | Multigrate |
 | `train_jafar.R` | `test_jafar.R` | [JAFAR (Anceschi, Ferrari, Dunson & Mallick, 2024)](https://arxiv.org/abs/2406.00778) |
 

@@ -72,7 +72,7 @@ single-cell stack, no `torch`/`mvlearn`/`prince` needed here):
 | `tidyverse`, `dplyr`, `readr`, `glue` | General data wrangling |
 | `ggplot2`, `cowplot`, `patchwork`, `RColorBrewer` | QC/UMAP plots |
 | `Biobase` | Bioconductor infrastructure dependency (Seurat/SeuratDisk chain) |
-| `MOFA2` | The MOFA+ baseline |
+| `MOFA2` | The [MOFA+](https://pmc.ncbi.nlm.nih.gov/articles/PMC6010767/) baseline |
 | `jafar`, `jsonlite`, `uwot` | The [JAFAR](https://arxiv.org/abs/2406.00778) baseline (model + metrics I/O + UMAP backend) |
 | `rstudioapi` *(optional)* | RStudio-convenience working-directory detection in the JAFAR/MOFA+ scripts; guarded by `requireNamespace(...)`, so its absence doesn't break anything |
 
@@ -101,7 +101,7 @@ preprocessing pipeline is pure Python/pandas, not Seurat-based like TEA-seq):
 
 | Package | Used for |
 |---|---|
-| `MOFA2` | The MOFA+ baseline |
+| `MOFA2` | The [MOFA+](https://pmc.ncbi.nlm.nih.gov/articles/PMC6010767/) baseline |
 | `survival` | Fitting the Cox proportional-hazards head on MOFA factors |
 | `Matrix`, `reticulate` | Sparse matrices / Python bridge |
 | `ggplot2` | Diagnostic plots |
