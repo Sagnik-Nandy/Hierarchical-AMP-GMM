@@ -118,3 +118,22 @@ Since only `split3_all_celltypes` is pushed to this repo (see
 function, only in `generate_train_test_splits.ipynb`) has been removed
 entirely rather than trimmed, since it isn't a plain cell-type filter like
 the other five.
+
+## Pre-processed downloads
+
+If you'd rather skip running the pipeline above, here are the already-computed
+outputs (mirrors of what's in this project's local `../data/` and
+`../splits/`, not tracked in git — see `.gitignore`):
+
+| File | Produced by | Download |
+|---|---|---|
+| `rna.h5ad` | Step 3 | [Dropbox](https://www.dropbox.com/scl/fi/gft097nc5wryb1vst1ayt/rna.h5ad?rlkey=djxg11k8w53yv4v359mku5j12&st=c06pnnji&dl=0) |
+| `atac.h5ad` | Step 3 | [Dropbox](https://www.dropbox.com/scl/fi/tmcf6t9ddhq88kakacu7s/atac.h5ad?rlkey=i9pxvqr2grwwoqsdapwi9iv9c&st=kcp31n2j&dl=0) |
+| `adt.h5ad` | Step 3 | [Dropbox](https://www.dropbox.com/scl/fi/sjbxpq9g1jxvph7io4e8y/adt.h5ad?rlkey=uis6euwj9fuujrlkjwwm43smg&st=d9ozg842&dl=0) |
+| `multi.h5mu` | Step 3 | [Dropbox](https://www.dropbox.com/scl/fi/89vqty2ovui28wrgfabv5/multi.h5mu?rlkey=sy04zxlk23z5y3ms6hyn61dln&st=dtinpqm2&dl=0) |
+| `cleaned_cell_labels_meta_tea_seq.csv` | Step 4 | [Dropbox](https://www.dropbox.com/scl/fi/07zzwh1468orqqj6r4e6z/cleaned_cell_labels_meta_tea_seq.csv?rlkey=2vtq246yde5hps047drws4wdc&st=x4oyvuyt&dl=0) |
+| `adt_minus_CD45RA.h5ad` | Step 5 | [Dropbox](https://www.dropbox.com/scl/fi/m7w1yp2kesyo0wicsnhgi/adt_minus_CD45RA.h5ad?rlkey=6jga8974lrbtspz0es7zz71io&st=l74cwin5&dl=0) |
+| `response/CD45RA.csv` | Step 5 | [Dropbox](https://www.dropbox.com/scl/fi/ylx5c49mkie1fi8gsrjxy/CD45RA.csv?rlkey=27v3b01cn9ehvf6wgy79indmb&st=0gi51yga&dl=0) |
+| `tea_split3_all_celltypes_hyper_idx.csv` | Step 6 | *(link pending)* |
+| `tea_split3_all_celltypes_train_idx.csv` | Step 7 | *(link pending)* |
+| `tea_split3_all_celltypes_test_idx.csv` | Step 7 | *(link pending)* |
