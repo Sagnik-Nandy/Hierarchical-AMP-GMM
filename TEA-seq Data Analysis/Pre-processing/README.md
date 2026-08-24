@@ -43,11 +43,11 @@ writes to `../data/`. `splits/` is created automatically by step 6.
 Filenames are hardcoded in the scripts, so they must match **exactly**
 (case-sensitive):
 
-| Filename | What it is |
-|---|---|
-| `feature_matrix.h5` | 10x-style combined feature-barcode matrix (RNA + ATAC) for the TEA-seq sample. Must contain `matrix/barcodes` and `matrix/features/{name,feature_type}`, with `feature_type` values `"Gene Expression"` and `"Peaks"`. |
-| `adt_counts.csv` | Raw ADT/protein counts, one row per cell barcode. Column 1 = barcode ID; column 2 is dropped as metadata; remaining columns = protein marker counts. |
-| `pbmc_10k_v3.rds` | CITE-seq reference Seurat object used for cell-type label transfer onto the RNA cells. Optional to place manually — `Pre-processing_tea_seq_data.R` auto-downloads it if missing. |
+| Filename | What it is | Download |
+|---|---|---|
+| `feature_matrix.h5` | 10x-style combined feature-barcode matrix (RNA + ATAC) for the TEA-seq sample. Must contain `matrix/barcodes` and `matrix/features/{name,feature_type}`, with `feature_type` values `"Gene Expression"` and `"Peaks"`. | [Dropbox](https://www.dropbox.com/scl/fi/afw1hxewpcpw2t3vgvl6c/feature_matrix.h5?rlkey=hr0fy7xloa9dq0x9zbuzs85kt&st=rult3nj7&dl=0) |
+| `adt_counts.csv` | Raw ADT/protein counts, one row per cell barcode. Column 1 = barcode ID; column 2 is dropped as metadata; remaining columns = protein marker counts. | [Dropbox](https://www.dropbox.com/scl/fi/km1nwfualgeenvm8hpr79/adt_counts.csv?rlkey=mvjs2w95a7o2eb4xnv09nwfgx&st=3kbmidtm&dl=0) |
+| `pbmc_10k_v3.rds` | CITE-seq reference Seurat object used for cell-type label transfer onto the RNA cells. Optional to place manually — `Pre-processing_tea_seq_data.R` auto-downloads it if missing. | *(auto-downloaded)* |
 
 Also update the `setwd(...)` line near the top of
 `Pre-processing_tea_seq_data.R` to point at this folder on your machine.
