@@ -1,47 +1,30 @@
 # Hierarchical AMP-GMM
 
-Numerical experiments for DAIF: a multi-modal denoising and prediction pipeline
-built on Approximate Message Passing (AMP) with a per-cluster Gaussian-Mixture
-empirical-Bayes prior. Modalities are grouped into clusters (by CKA similarity or
-otherwise), jointly denoised via AMP, and the denoised representations feed a
-downstream predictor. Compared here against multi-view baselines (AJIVE, MCCA,
-GCCA, MFA, HPCA) and Cooperative Lasso (Ding & Tibshirani, 2021).
-
-See `Numerical_Experiments/Python_Scripts/complete_pipeline.py` for the training-
-covariate projection modes (`onsager`, `sample_split`, `in_sample_ols`) referenced
-throughout the scripts below.
+DAIF: a multi-modal denoising and prediction pipeline built on Approximate
+Message Passing (AMP) with a per-cluster Gaussian-Mixture empirical-Bayes
+prior. Modalities are grouped into clusters (by CKA similarity or otherwise),
+jointly denoised via AMP, and the denoised representations feed a downstream
+predictor. Compared against multi-view baselines (AJIVE, MCCA, GCCA, MFA,
+HPCA), Cooperative Lasso (Ding & Tibshirani, 2021), JAFAR, MOFA+, and
+Multigrate.
 
 ## Repository layout
 
-```
-Numerical_Experiments/
-├── Python_Scripts/   AMP/EB pipeline modules + the experiment driver scripts
-├── Slurm_Scripts/    One SLURM array-job launcher per experiment (mirrors Python_Scripts)
-└── Notebooks/        Aggregates each experiment's per-(n, seed) CSVs into a
-                       LaTeX table + plots
-```
+| Folder | Contents |
+|---|---|
+| [`Numerical_Experiments/`](Numerical_Experiments/README.md) | Synthetic-data experiments: Slurm-launched AMP/EB trials aggregated into LaTeX tables and plots. |
+| [`TEA-seq Data Analysis/`](TEA-seq%20Data%20Analysis/README.md) | The same method (OrchAMP) applied to a real trimodal single-cell dataset (TEA-seq PBMCs: RNA + ATAC + ADT), benchmarked against JAFAR, MOFA+, Multigrate, and Cooperative Lasso. |
 
-Each experiment follows the same chain: a Slurm array job launches many
-`(n, seed)` trials of a Python script, each trial writes
-`Results/<experiment>/partial_result_{n}_{seed}.csv`, and the matching notebook
-globs that directory to produce the final table/figure.
-
-| Notebook | Script | Slurm job |
-|---|---|---|
-| `cka_vs_baselines.ipynb` | `cka_vs_baselines.py` | `cka_vs_baselines/cka_vs_baselines.sh` |
-| `coop_vs_daif_onsager.ipynb` | `coop_vs_daif_onsager.py` | `coop_vs_daif_onsager/coop_vs_daif_onsager.sh` |
-| `pred_err_onsager.ipynb` | `pred_err_vary_n_onsager.py` + `pred_err_vary_n_nl_linear_onsager.py` | matching `.sh` in each script's own Slurm folder |
-| `pred_err_vs_baselines_onsager.ipynb` | `pred_err_vs_baselines_onsager.py` | `pred_err_vs_baselines_onsager/pred_err_vs_baselines_onsager.sh` |
-| `vary_n.ipynb` | `vary_n.py` | `vary_n/vary_n.sh` |
-
-All six driver scripts import the shared pipeline modules also in
-`Python_Scripts/`: `amp.py`, `pca_pack.py`, `preprocessing.py`, `emp_bayes.py`,
-`hierarchical_clustering_modalities.py`, `complete_pipeline.py`, and
-`other_multimodal.py` (baselines only).
+Each folder's README has the detailed layout, run order, and per-file
+breakdown.
 
 ## Requirements
 
-Python ≥ 3.10 (tested with 3.10.18). Install with:
+Two runtimes across the repo: Python for everything, plus R for
+`TEA-seq Data Analysis/`'s original Seurat-based preprocessing and two of its
+baselines (MOFA+, JAFAR).
+
+### Python — `Numerical_Experiments/`
 
 ```bash
 pip install -r requirements.txt
@@ -59,31 +42,34 @@ pip install -r requirements.txt
 | `ipython`, `jupyter` | Running the aggregation notebooks (`IPython.display.Latex`) |
 | `xgboost` *(optional)* | Only for the `"xgboost"` predictor architecture; imported in a `try/except`, so the rest of the pipeline works without it |
 
-The Slurm scripts additionally expect a conda environment named
-`multiview-regression` with the above installed (`conda activate
-multiview-regression`).
+### Python — `TEA-seq Data Analysis/`
 
-**Note:** `complete_pipeline.py` imports a private sklearn function
-(`sklearn.mixture._gaussian_mixture._compute_precision_cholesky`). This isn't
-part of sklearn's public API and can change between versions — pin
-`scikit-learn==1.7.2` (as in `requirements.txt`) if you hit an `ImportError`
-there.
+Not pinned in `requirements.txt` (separate environment from the above —
+single-cell stack, no `torch`/`mvlearn`/`prince` needed here):
 
-## Running an experiment
+| Package | Used for |
+|---|---|
+| `numpy`, `scipy`, `pandas` | Core numerics and tabular data |
+| `scikit-learn` | Metrics, `StandardScaler`/PCA/`TruncatedSVD`, `LinearRegression`, `GaussianMixture` (via `Python_scripts/`) |
+| `anndata`, `scanpy`, `muon` | `.h5ad`/`.h5mu` single-cell data structures and I/O |
+| `h5py` | Reading MOFA2's HDF5 export directly (`test_mofa.ipynb`) |
+| `matplotlib` | PCA diagnostics, dendrograms, UMAP plots |
+| `umap-learn` (imported as `umap`) | UMAP embeddings of denoised test features |
+| `joblib` | Parallel grid search (Cooperative Lasso) and model persistence |
+| `multigrate`, `scvi-tools` (imported as `scvi`) | The Multigrate baseline (VAE-based multi-omics integration) |
 
-Each script takes `<n> <seed>` and writes one partial-result CSV:
+### R — `TEA-seq Data Analysis/`
 
-```bash
-python Numerical_Experiments/Python_Scripts/vary_n.py 3000 0
-```
-
-At scale, submit the matching Slurm array job (adjust the account/partition
-and the hardcoded paths for your cluster):
-
-```bash
-sbatch Numerical_Experiments/Slurm_Scripts/vary_n/vary_n.sh
-```
-
-Once all array tasks finish, run the corresponding notebook in
-`Numerical_Experiments/Notebooks/` to aggregate results into a LaTeX table and
-plots.
+| Package | Used for |
+|---|---|
+| `Seurat`, `SeuratDisk`, `SeuratData` | RNA/ATAC QC, clustering, UMAP, cell-type label transfer, `.h5ad` export |
+| `rhdf5`, `Matrix` | Parsing the raw 10x-style `feature_matrix.h5` sparse matrix |
+| `anndata` (R package), `reticulate` | Writing `.h5ad` files from R |
+| `EnsDb.Hsapiens.v86` | Gene annotation reference |
+| `leiden`, `nng`, `combinat` | Clustering utilities used in preprocessing |
+| `tidyverse`, `dplyr`, `readr`, `glue` | General data wrangling |
+| `ggplot2`, `cowplot`, `patchwork`, `RColorBrewer` | QC/UMAP plots |
+| `Biobase` | Bioconductor infrastructure dependency (Seurat/SeuratDisk chain) |
+| `MOFA2` | The MOFA+ baseline |
+| `jafar`, `jsonlite`, `uwot` | The JAFAR baseline (model + metrics I/O + UMAP backend) |
+| `rstudioapi` *(optional)* | RStudio-convenience working-directory detection in the JAFAR/MOFA+ scripts; guarded by `requireNamespace(...)`, so its absence doesn't break anything |
