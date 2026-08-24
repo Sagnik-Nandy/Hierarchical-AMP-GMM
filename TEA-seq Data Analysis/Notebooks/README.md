@@ -26,8 +26,6 @@ These three import `Python_scripts/` (`sys.path.append("../Python_scripts")`)
 | `train_multigrate.ipynb` | `test_multigrate.ipynb` | Multigrate |
 | `train_jafar.R` | `test_jafar.R` | JAFAR |
 
-(scGLUE's train/test notebooks are not included in this push.)
-
 Each `train_*` script fits on the split-3 training cells and saves a model;
 each matching `test_*` script loads that saved model and evaluates on the
 split-3 held-out cells. All of these only use third-party packages (no

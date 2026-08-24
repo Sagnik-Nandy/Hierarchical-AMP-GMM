@@ -38,13 +38,3 @@ multimodal_prediction_linear.py         (entry point)
 | `amp_data_pipeline.py` | Orchestrates PCA + empirical-Bayes + preprocessing (and clustering, if available) into the AMP pipeline; consumed by `multimodal_prediction_linear.py`. |
 | `preprocessing.py` | `MultiModalityPCADiagnostics`, `LowDimModalityLoadings` — per-modality noise normalization and PC diagnostics ahead of AMP. |
 | `hierarchical_clustering_modalities.py` | `ModalityClusterer` — clusters modalities by similarity (kernel-based; CKA-style) before joint denoising. This is the "hierarchical" step in the project's AMP-GMM method. |
-
-## Not included
-
-`complete_pipeline.py`, `multimodal_prediction_unified.py`, and
-`multimodal_unified_pipeline.py` also live in the source `Python_scripts/`
-folder but aren't needed here: the first is only pulled in as an optional
-`try/except`-guarded fast path (and is currently stale — it references
-module names from before a rename, so the import always fails and the code
-falls back to the built-in implementation); the other two aren't imported by
-anything in this repo.
