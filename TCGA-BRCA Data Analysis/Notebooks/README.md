@@ -24,8 +24,7 @@ These three import `Python_scripts/` (`sys.path.append("../Python_scripts")`)
 | `train_mofa_brca_survival.R` | `test_mofa_brca_survival.ipynb` | MOFA2 + Cox (train in R, test in Python) |
 | `train_multigrate_brca_survival.ipynb` | `test_multigrate_brca_survival.ipynb` | Multigrate + Cox |
 
-No JAFAR or Cooperative Lasso baseline for this dataset (unlike the TEA-seq
-folder — those weren't run here).
+No JAFAR or Cooperative Lasso baseline for this dataset.
 
 Each `train_*` fits a MOFA/Multigrate embedding plus a downstream linear Cox
 head on the frozen training split, saving the model + embedding
