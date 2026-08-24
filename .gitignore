@@ -4,3 +4,17 @@ Python_Scripts/gmm_deploy_key.txt
 # Python
 __pycache__/
 *.pyc
+
+# OS / editor junk
+.DS_Store
+.Rhistory
+.ipynb_checkpoints/
+
+# Large data/model artifacts (raw + intermediate) — never auto-added
+TEA-seq Data Analysis/**/*.h5ad
+TEA-seq Data Analysis/**/*.h5mu
+TEA-seq Data Analysis/**/*.h5
+TEA-seq Data Analysis/**/*.rds
+TEA-seq Data Analysis/**/*.csv
+TEA-seq Data Analysis/**/*.pt
+TEA-seq Data Analysis/data/
