@@ -1,12 +1,17 @@
 # Pre-processing
 
 Turns raw TEA-seq (RNA + ATAC + ADT) and a CITE-seq reference into cleaned,
-matched-cell matrices for each modality, then merges them into one `MuData`
-object. Run the three files in this folder in order:
+matched-cell matrices for each modality, merges them into one `MuData`
+object, then prepares the regression target and train/test/hyperparameter
+splits consumed by `../Notebooks/`. Run the files in this folder in order:
 
 1. `Pre-processing_tea_seq_data.R`
 2. `adt_pre_processing.ipynb`
 3. `pre_processing.ipynb`
+4. `generate_cell_labels_meta.ipynb`
+5. `separate_response.ipynb`
+6. `generate_hyperparameter_splits.ipynb`
+7. `generate_train_test_splits.ipynb`
 
 This pipeline mirrors the TEA-seq pre-processing used in
 [Nandy & Ma (2024), "Multimodal data integration and cross-modal querying
@@ -19,11 +24,13 @@ via orchestrated approximate message passing"](https://arxiv.org/abs/2407.19030)
 ```
 TEA-seq Data Analysis/
 ├── Pre-processing/   <- this folder: scripts + raw inputs go here
-└── data/              <- created by step 3 (sibling of Pre-processing/)
+├── data/              <- created by step 3 (sibling of Pre-processing/); step 5 adds data/response/
+├── splits/            <- created by steps 6-7
+└── Notebooks/         <- consumes data/ and splits/ (see ../Notebooks/README.md)
 ```
 
 Before running, set `data/` up as a sibling of `Pre-processing/` — step 3
-writes to `../data/`.
+writes to `../data/`. `splits/` is created automatically by step 6.
 
 ## Raw inputs to place in this folder
 
@@ -65,3 +72,29 @@ and writes to `../data/`:
 
 - `multi.h5mu` (merged trimodal object)
 - `rna.h5ad`, `atac.h5ad`, `adt.h5ad` (per-modality)
+
+**4. `generate_cell_labels_meta.ipynb`** — regenerates
+`../data/cleaned_cell_labels_meta_tea_seq.csv` directly from `rna.h5ad`'s
+`celltype` obs column (with a barcode/order verification check), so the
+metadata file can't drift out of sync with the AnnData files. Re-run whenever
+`rna.h5ad` is regenerated.
+
+**5. `separate_response.ipynb`** — extracts the regression target protein
+(`CD45RA`, configurable) from `adt.h5ad`'s `norm` layer into
+`../data/response/CD45RA.csv`, and writes `../data/adt_minus_CD45RA.h5ad`
+(the remaining 39 proteins, target removed to prevent leakage) — this is the
+LD modality the `orchamp_*_fusion` notebooks and baselines train against.
+
+**6. `generate_hyperparameter_splits.ipynb`** — carves out a stratified 10%
+hyperparameter-tuning subset (`split3_all_celltypes` only — see note below)
+into `../splits/tea_split3_all_celltypes_hyper_idx.csv`.
+
+**7. `generate_train_test_splits.ipynb`** — excludes the hyper-indices from
+step 6, then does a stratified 80/20 train/test split into
+`../splits/tea_split3_all_celltypes_{train,test}_idx.csv`.
+
+**Note on split scope:** the source versions of steps 6–7 generate six named
+splits (`split1_tcells` … `split6_mixed_b`, each restricting to a different
+cell-type subset). Since only `split3_all_celltypes` is pushed to this repo
+(see `../Notebooks/`), both notebooks here have been trimmed to generate
+`split3_all_celltypes` only.
