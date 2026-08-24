@@ -1,0 +1,63 @@
+# Notebooks
+
+Train/test regression of a held-out ADT protein target (CD45RA, continuous)
+from the TEA-seq modalities on split 3 (`tea_split3_all_celltypes`): RNA +
+ATAC as high-dimensional (HD) modalities, ADT-with-target-removed as the
+low-dimensional (LD) modality. Compares the OrchAMP method (this project) in
+three fusion configurations against several multi-omics baselines.
+
+## OrchAMP (this project's method)
+
+| Notebook | Fusion strategy |
+|---|---|
+| `orchamp_early_fusion.ipynb` | All modalities pooled into one cluster before AMP denoising |
+| `orchamp_intermediate_fusion.ipynb` | Modalities grouped by learned similarity, each group denoised jointly |
+| `orchamp_late_fusion.ipynb` | `num_clusters = 3` — one cluster per modality, each denoised independently |
+
+These three import `Python_scripts/` (`sys.path.append("../Python_scripts")`)
+— see `../Python_scripts/README.md` for the pipeline module chain.
+
+## Baselines (train → test, per method)
+
+| Train | Test | Method |
+|---|---|---|
+| `train_co_op.ipynb` | `test_co_op.ipynb` | Cooperative Lasso (Ding & Tibshirani, 2021) |
+| `train_mofa.R` | `test_mofa.ipynb` | MOFA+ (train in R, test in Python) |
+| `train_multigrate.ipynb` | `test_multigrate.ipynb` | Multigrate |
+| `train_jafar.R` | `test_jafar.R` | JAFAR |
+
+(scGLUE's train/test notebooks are not included in this push.)
+
+Each `train_*` script fits on the split-3 training cells and saves a model;
+each matching `test_*` script loads that saved model and evaluates on the
+split-3 held-out cells. All of these only use third-party packages (no
+`Python_scripts/` dependency).
+
+## Aggregation
+
+`create_summary.ipynb` — runs last. Collects the saved test metrics from all
+of the above (OrchAMP variants + JAFAR, CoopReg, MOFA+, Multigrate) into one
+summary table for `tea_split3_all_celltypes`.
+
+## Directory expectations
+
+Every notebook/script here reads/writes relative to this folder's parent,
+i.e. it expects to sit at `TEA-seq Data Analysis/Notebooks/`:
+
+```
+TEA-seq Data Analysis/
+├── Pre-processing/
+├── Notebooks/          <- this folder
+├── Python_scripts/     <- used by the orchamp_*_fusion notebooks only
+├── data/                <- from Pre-processing/ (rna.h5ad, atac.h5ad, adt.h5ad, multi.h5mu)
+├── splits/               <- train/test split assignments (NOT included in this push — see below)
+└── models/               <- where train_* scripts save models; where test_* scripts load them from (NOT included in this push)
+```
+
+**`splits/` is not yet in this repo.** These notebooks all take a
+`splits_dir="../splits"` argument, generated upstream by
+`generate_train_test_splits.ipynb` / `generate_hyperparameter_splits.ipynb`
+(in the source project, not part of this commit) — you'll need that folder
+in place before any of these will run. `models/` is likewise produced by the
+`train_*` scripts and consumed by the matching `test_*` scripts, and isn't
+pushed here either (trained model artifacts, not code).
