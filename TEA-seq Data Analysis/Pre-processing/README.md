@@ -94,7 +94,21 @@ step 6, then does a stratified 80/20 train/test split into
 `../splits/tea_split3_all_celltypes_{train,test}_idx.csv`.
 
 **Note on split scope:** the source versions of steps 6–7 generate six named
-splits (`split1_tcells` … `split6_mixed_b`, each restricting to a different
-cell-type subset). Since only `split3_all_celltypes` is pushed to this repo
-(see `../Notebooks/`), both notebooks here have been trimmed to generate
-`split3_all_celltypes` only.
+splits, each restricting the cell population to a different subset before
+the hyper/train/test partition:
+
+| Split | Cell types included |
+|---|---|
+| `split1_tcells` | CD4 Memory, CD4 Naive, CD8 Naive, CD8 effector, Double negative T cell |
+| `split2_cd4_cd8_only` | CD4 Memory, CD4 Naive, CD8 Naive, CD8 effector (T cells minus double-negatives) |
+| `split3_all_celltypes` | No restriction — every cell type in the dataset (the split pushed here) |
+| `split4_b_lineage` | B cell progenitor, pre-B cell |
+| `split5_myeloid` | CD14+ Monocytes, CD16+ Monocytes, Dendritic cell, pDC, Platelets |
+| `split6_mixed_b` | All of `split4_b_lineage`'s remaining (non-hyper) cells, plus a 50%-matched random sample of every other cell type |
+
+Since only `split3_all_celltypes` is pushed to this repo (see
+`../Notebooks/`), both notebooks here have been trimmed to generate
+`split3_all_celltypes` only — the `split6_mixed_b` construction (a separate
+function, only in `generate_train_test_splits.ipynb`) has been removed
+entirely rather than trimmed, since it isn't a plain cell-type filter like
+the other five.
