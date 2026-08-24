@@ -8,6 +8,8 @@ __pycache__/
 # OS / editor junk
 .DS_Store
 .Rhistory
+.RData
+.RDataTmp
 .ipynb_checkpoints/
 
 # Large data/model artifacts (raw + intermediate) — never auto-added
@@ -18,3 +20,13 @@ TEA-seq Data Analysis/**/*.rds
 TEA-seq Data Analysis/**/*.csv
 TEA-seq Data Analysis/**/*.pt
 TEA-seq Data Analysis/data/
+
+TCGA-BRCA Data Analysis/**/*.csv
+TCGA-BRCA Data Analysis/**/*.tsv
+TCGA-BRCA Data Analysis/**/*.tsv.gz
+TCGA-BRCA Data Analysis/**/*.pt
+TCGA-BRCA Data Analysis/data/
+TCGA-BRCA Data Analysis/matrices/
+TCGA-BRCA Data Analysis/models/
+TCGA-BRCA Data Analysis/results/
+TCGA-BRCA Data Analysis/splits/
