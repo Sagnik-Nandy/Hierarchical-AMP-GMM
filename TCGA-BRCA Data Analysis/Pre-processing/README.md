@@ -87,3 +87,15 @@ TCGA-BRCA Data Analysis/
 ├── splits/               <- created by step 3
 └── Notebooks/            <- consumes matrices/, splits/, data/ (survival labels)
 ```
+
+## Pre-processed downloads
+
+If you'd rather skip running the pipeline above, here are the
+already-computed outputs (mirrors of this project's local `../matrices/` and
+`../splits/`, not tracked in git — see `.gitignore`), shared as whole
+folders:
+
+| Folder | Contents | Download |
+|---|---|---|
+| `matrices/` | The 20 files from steps 1–2: per-modality `{RNA,CNV,Methylation}_{X_full,X_approx,U,D,V,Z_residual}.csv` plus `CNV_X_preprocessed.csv` and `CNV_X_ld_features.csv` | [Dropbox folder](https://www.dropbox.com/scl/fo/8f2y72ylaqn3yeze91v69/ADgVz2ySHb2UI7MHaS2Skpg?rlkey=eo52medy3d8igeutbkgp5dllo&st=64k2de5c&dl=0) |
+| `splits/` | `brca_survival_{sample_ids,train_idx,test_idx}.csv` from step 3 | [Dropbox folder](https://www.dropbox.com/scl/fo/bsanzulhup10wdj4l24kt/ACqD3cEouwGq0HYhwdCeUUA?rlkey=7r8xm6qqkm9ntp4x8ii2y7vt0&st=nzodn59a&dl=0) |
