@@ -1,0 +1,20 @@
+# Core numerical stack
+numpy==2.2.6
+pandas==2.3.2
+scipy==1.15.2
+scikit-learn==1.7.2
+matplotlib==3.10.6
+torch==2.6.0
+
+# Multi-view baselines (AJIVE, MCCA, GCCA / MFA)
+mvlearn==0.5.0
+prince==0.16.1
+
+# Notebooks (LaTeX table rendering, display)
+ipython==8.37.0
+jupyter
+
+# Optional: only needed for the "xgboost" predictor architecture in
+# complete_pipeline.py — imported inside a try/except, so its absence
+# does not break anything else.
+xgboost==3.1.1
