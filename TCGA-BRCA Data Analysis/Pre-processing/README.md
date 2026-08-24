@@ -1,0 +1,87 @@
+# Pre-processing
+
+Turns raw TCGA-BRCA multi-omics data (RNA-seq, CNV, DNA methylation,
+survival) into aligned low-rank matrices, a low-dimensional CNV feature set,
+and frozen train/test splits. Run in this order:
+
+1. `tcga_brca_pipeline.py` **or** `tcga_brca_pipeline.ipynb` — see note below
+2. `preprocess_cnv_brca.ipynb`
+3. `generate_brca_survival_splits.ipynb`
+
+## Note on step 1: two versions, not interchangeable
+
+`tcga_brca_pipeline.py` and `tcga_brca_pipeline.ipynb` have diverged and are
+both included here rather than picking one:
+
+- **`tcga_brca_pipeline.py`** — the clean, portable version. Downloads RNA-seq,
+  CNV, and methylation directly from public UCSC Xena URLs into a relative
+  `tcga_brca_data/`, filters each modality by a variance **percentile**
+  threshold (bottom `rna_var_pct`/`meth_var_pct`% dropped), and rank-selects
+  the SVD by a variance-explained threshold (`variance_threshold=0.90`).
+- **`tcga_brca_pipeline.ipynb`** — the notebook actually run to produce what's
+  in `../matrices/`. Assumes the raw files are already downloaded, and
+  instead of a percentile filter, keeps a **fixed top-N features** per
+  modality (`TOP_FEATURES = {"rna": 2000, "cnv": 1000, "meth": 5000}`) before
+  the same SVD rank-selection step.
+
+If you're reproducing `../matrices/` as it exists in this repo, run the
+notebook. If you want a portable starting point for a different feature
+count or threshold, start from the script.
+
+## What it does / produces
+
+**1. `tcga_brca_pipeline.{py,ipynb}`** — for each modality:
+- Downloads from UCSC Xena (script only; the notebook expects the four raw
+  files already present — see Raw inputs below).
+- Loads (Xena files are features×samples; transposed to samples×features).
+- Restricts to primary-tumor samples (TCGA barcode position 14 = `01`) and
+  intersects sample IDs across all three modalities.
+- Per modality: drops high-missing features, imputes remainder (median /
+  zero for CNV), removes low-variance features, and normalizes (Z-score for
+  RNA/methylation; methylation additionally gets an M-value transform,
+  `M = log2(beta / (1 - beta))`, before scaling).
+- Rank-selects and computes a truncated SVD per modality: `X ≈ U D Vᵀ`,
+  `Z = X - X_approx` the residual.
+- Saves `../matrices/{RNA,CNV,Methylation}_{X_full,X_approx,U,D,V,Z_residual}.csv`
+  and diagnostic plots (singular-value scree, residual-vs-Gaussian
+  histograms).
+
+**2. `preprocess_cnv_brca.ipynb`** — builds the CNV **low-dimensional (LD)**
+modality (mirrors `separate_response.ipynb`'s role in the TEA-seq pipeline):
+selects the top-5 CNV features by marginal variance from `CNV_X_full.csv`,
+removes the top-3 signal PCs, estimates **per-feature** noise variance
+`tau_j²` from the residual (chosen over a single global `tau²` because it's
+what guarantees `cov(A_norm) - I` stays PSD under heteroscedastic noise),
+and divides each column by `tau_j`. Verifies the result is PSD, then saves
+`../matrices/CNV_X_ld_features.csv`.
+
+**3. `generate_brca_survival_splits.ipynb`** — loads survival labels
+(`OS`/`OS.time` from `BRCA_survival.tsv`), drops rows with missing or
+non-positive survival time, intersects sample IDs across all three
+modalities and the cleaned survival table, then does one stratified 80/20
+train/test split (stratified on the event indicator). Saves
+`../splits/brca_survival_{sample_ids,train_idx,test_idx}.csv`. Unlike the
+TEA-seq preprocessing, there's only one population/split here — no per-split
+scoping needed.
+
+## Raw inputs (for the notebook path, or if you skip the script's download)
+
+Place in a `data/` folder as a sibling of this one:
+
+| Filename | Source |
+|---|---|
+| `BRCA_RNAseq.tsv.gz` | UCSC Xena, RSEM log2-normalized RNA-seq |
+| `BRCA_CNV.tsv.gz` | UCSC Xena, GISTIC2 thresholded copy number |
+| `BRCA_Methylation450.tsv.gz` | UCSC Xena, HumanMethylation450 beta values |
+| `BRCA_survival.tsv` | UCSC Xena, survival/clinical labels |
+
+## Directory layout
+
+```
+TCGA-BRCA Data Analysis/
+├── Pre-processing/    <- this folder
+├── data/                <- raw Xena downloads (sibling of Pre-processing/)
+├── matrices/             <- created by step 1 (+ CNV_X_ld_features.csv from step 2)
+├── splits/               <- created by step 3
+└── Notebooks/            <- consumes matrices/, splits/, data/ (survival labels)
+```
