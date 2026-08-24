@@ -134,6 +134,6 @@ outputs (mirrors of what's in this project's local `../data/` and
 | `cleaned_cell_labels_meta_tea_seq.csv` | Step 4 | [Dropbox](https://www.dropbox.com/scl/fi/07zzwh1468orqqj6r4e6z/cleaned_cell_labels_meta_tea_seq.csv?rlkey=2vtq246yde5hps047drws4wdc&st=x4oyvuyt&dl=0) |
 | `adt_minus_CD45RA.h5ad` | Step 5 | [Dropbox](https://www.dropbox.com/scl/fi/m7w1yp2kesyo0wicsnhgi/adt_minus_CD45RA.h5ad?rlkey=6jga8974lrbtspz0es7zz71io&st=l74cwin5&dl=0) |
 | `response/CD45RA.csv` | Step 5 | [Dropbox](https://www.dropbox.com/scl/fi/ylx5c49mkie1fi8gsrjxy/CD45RA.csv?rlkey=27v3b01cn9ehvf6wgy79indmb&st=0gi51yga&dl=0) |
-| `tea_split3_all_celltypes_hyper_idx.csv` | Step 6 | *(link pending)* |
-| `tea_split3_all_celltypes_train_idx.csv` | Step 7 | *(link pending)* |
-| `tea_split3_all_celltypes_test_idx.csv` | Step 7 | *(link pending)* |
+| `tea_split3_all_celltypes_hyper_idx.csv` | Step 6 | [Dropbox](https://www.dropbox.com/scl/fi/w0rqddkxz5sot6rptrzbc/tea_split3_all_celltypes_hyper_idx.csv?rlkey=m93kqnt53c2aaar5glh8u4wee&st=n4vt38ta&dl=0) |
+| `tea_split3_all_celltypes_train_idx.csv` | Step 7 | [Dropbox](https://www.dropbox.com/scl/fi/ug5o446pxcm005funi2s5/tea_split3_all_celltypes_train_idx.csv?rlkey=3ym02y6520cifzbk4px1n1jxb&st=ogj8xj7h&dl=0) |
+| `tea_split3_all_celltypes_test_idx.csv` | Step 7 | [Dropbox](https://www.dropbox.com/scl/fi/pgexwm88nydcm8h0e8a0x/tea_split3_all_celltypes_test_idx.csv?rlkey=3kvn2k42uztvycmjol1gzswnu&st=jmt745l1&dl=0) |
