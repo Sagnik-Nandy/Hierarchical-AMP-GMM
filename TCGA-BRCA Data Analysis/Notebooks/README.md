@@ -22,7 +22,7 @@ These three import `Python_scripts/` (`sys.path.append("../Python_scripts")`)
 | Train | Test | Method |
 |---|---|---|
 | `train_mofa_brca_survival.R` | `test_mofa_brca_survival.ipynb` | [MOFA2 (Argelaguet et al., 2018)](https://pmc.ncbi.nlm.nih.gov/articles/PMC6010767/) + Cox (train in R, test in Python) |
-| `train_multigrate_brca_survival.ipynb` | `test_multigrate_brca_survival.ipynb` | Multigrate + Cox |
+| `train_multigrate_brca_survival.ipynb` | `test_multigrate_brca_survival.ipynb` | [Multigrate](https://github.com/theislab/multigrate) + Cox |
 
 No JAFAR or Cooperative Lasso baseline for this dataset.
 

@@ -58,7 +58,7 @@ single-cell stack, no `torch`/`mvlearn`/`prince` needed here):
 | `matplotlib` | PCA diagnostics, dendrograms, UMAP plots |
 | `umap-learn` (imported as `umap`) | UMAP embeddings of denoised test features |
 | `joblib` | Parallel grid search (Cooperative Lasso) and model persistence |
-| `multigrate`, `scvi-tools` (imported as `scvi`) | The Multigrate baseline (VAE-based multi-omics integration) |
+| `multigrate`, `scvi-tools` (imported as `scvi`) | The [Multigrate](https://github.com/theislab/multigrate) baseline (VAE-based multi-omics integration) |
 
 ### R — `TEA-seq Data Analysis/`
 
@@ -92,7 +92,7 @@ environment above, minus the single-cell-specific packages):
 | `joblib` | Model/scaler persistence |
 | `lifelines` | Concordance-index (C-index) computation for survival evaluation |
 | `anndata`, `scanpy`, `h5py` | `.h5ad` structures and reading MOFA2's HDF5 export, mirroring the TEA-seq baselines |
-| `multigrate`, `scvi-tools` (imported as `scvi`) | The Multigrate baseline |
+| `multigrate`, `scvi-tools` (imported as `scvi`) | The [Multigrate](https://github.com/theislab/multigrate) baseline |
 
 ### R — `TCGA-BRCA Data Analysis/`
 
